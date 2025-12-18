@@ -1,0 +1,11 @@
+1. Load "Read" the two input images.
+2. Display the two images.
+3. Convert the second image with RGB channels into an image with a single grayscale channel and display it.
+4. Resize the second image to be the same as the first.
+5. Apply the addition operation on the two images and display the result.
+6. Blending the two images using (addWeighted) and display the result.
+7. Download noised image and apply GaussianBlur filter with (5,5) kernel.
+NmLk
+V
+Home
+8. Apply equalization on the second image and display it.
