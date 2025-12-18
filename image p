@@ -1,0 +1,49 @@
+import cv2
+import numpy as np
+
+# 1. Load "Read" the two input images
+img1 = cv2.imread('image1.jpg')
+img2 = cv2.imread('image2.jpg')
+
+# 2. Display the two images
+cv2.imshow('Image 1', img1)
+cv2.imshow('Image 2', img2)
+cv2.waitKey(0) # Press any key to continue
+
+# 3. Convert the second image (RGB) into a single grayscale channel and display it
+img2_gray = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
+cv2.imshow('Image 2 Grayscale', img2_gray)
+cv2.waitKey(0)
+
+# 4. Resize the second image to be the same as the first
+# Note: We resize the grayscale version here to prepare for addition/blending
+height, width = img1.shape[:2]
+img2_resized = cv2.resize(img2_gray, (width, height))
+
+# 5. Apply the addition operation on the two images and display the result
+# Since img1 is BGR and img2_resized is Grayscale, we convert img2 back to BGR 
+# or convert img1 to gray to make them compatible for math operations.
+img1_gray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+added_img = cv2.add(img1_gray, img2_resized)
+cv2.imshow('Added Images', added_img)
+cv2.waitKey(0)
+
+# 6. Blending the two images using (addWeighted) and display the result
+# Formula: dst = src1*alpha + src2*beta + gamma
+blended_img = cv2.addWeighted(img1_gray, 0.7, img2_resized, 0.3, 0)
+cv2.imshow('Blended Images', blended_img)
+cv2.waitKey(0)
+
+# 7. Download noised image and apply GaussianBlur filter with (5,5) kernel
+# (Assuming 'noised_image.jpg' is downloaded)
+noised_img = cv2.imread('noised_image.jpg')
+blurred_img = cv2.GaussianBlur(noised_img, (5, 5), 0)
+cv2.imshow('Gaussian Blur Result', blurred_img)
+cv2.waitKey(0)
+
+# 8. Apply equalization on the second image and display it
+equalized_img = cv2.equalizeHist(img2_resized)
+cv2.imshow('Equalized Image', equalized_img)
+cv2.waitKey(0)
+
+cv2.destroyAllWindows()
